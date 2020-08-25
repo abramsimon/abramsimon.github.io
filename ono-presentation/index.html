@@ -18,23 +18,72 @@
 			<div class="slides">
 				<section>
 					<section>
-						<img class="fragment fade-up" style="height: 400px;" src="https://abramsimon.github.io/me_and_hailey.png" />
+						<img style="height: 400px;" src="https://abramsimon.github.io/me_and_hailey.png" />
 						<p class="fragment">Hi 👋 ... I'm Abram!</p>
 						<p class="fragment fade-up"><small>(and that's Hailey)</small></p>
 					</section>
+				</section>
+				<section>
+					<section data-background-image="./bg-project.jpg" data-background-opacity="0.5">
+						<h3>Project Brief: PDF Export</h3>
+					</section>
 					<section>
-
+						<h3>Samsara Documents</h3>
+						<small>Let's drivers submit forms on-the-go</small>
+						<small>Often used for delivery receipts, fuel purchases, accident reports and more</small>
+						<small>You use Samsara... <a href="https://cloud.samsara.com/o/23472/fleet/reports/documents">Give it a try</a>!</small>
 					</section>
 				</section>
 				<section>
-					<section>Project Brief: PDF Export</section>
-					<section>What problem are we solving?</section>
-					<section>Why is this problem hard?</section>
-					<section>Have we tried anything before?</section>
+					<section data-background-image="./bg-problem.jpg" data-background-opacity="0.5">
+						<h3>The Problem</h3>
+					</section>
+					<section>
+						<h3>What do customers want?</h3>
+						<small>Samsara Documents were designed for interactive environments</small><br />
+						<small>Customers want to share documents!</small><br />
+						<small>They also want to archive them</small><br />
+						<small>They started creating their own ways ... 🤔</small><br />
+					</section>
 				</section>
 				<section>
-					<section>The Solution</section>
-					<section>Why choose this solution?</section>
+					<section data-background-image="./bg-research.jpg" data-background-opacity="0.5">
+						<h3>Research</h3>
+					</section>
+					<section>
+						<h3>🎯 Goals</h3>
+						<small>Ability for customers to export a document to PDF</small><br />
+						<small>PDFs should be fully featured (photos, digital signatures, etc.)</small><br />
+						<small>They should be visually appealing</small><br />
+						<small>They should be easy to consume, both digitally and when printed</small><br />
+						<small>Create a system that can be <del>easily</del> replicated on other teams</small>
+					</section>
+					<section>
+						<h3>Non-Goals</h3>
+						<small>Solve every team's PDF problems on the first pass</small>
+					</section>
+					<section>
+						<h3>Why is this problem hard?</h3>
+						<small>Coders ≠ Designers</small><br />
+						<small>PDFs present unique layout challenges</small><br />
+						<small>Most FOSS solutions are very low level</small>
+					</section>
+					<section>
+						<h3>We've tried before and failed 😢</h3>
+						<small>Leadership was reluctant</small><br />
+						<sub><small>* see <a href="#/1/2">why is this problem hard</a></small></sub>
+					</section>
+				</section>
+				<section>
+					<section data-background-image="./bg-solution.jpg" data-background-opacity="0.5">
+						<h3>The Solution</h3>
+					</section>
+					<section>
+						<h3>First, the alternatives...</h3>
+						<small>Let the customer solve the problem 🤦‍♂️</small>
+						<small>Web->PDF Rendering</small>
+						<small>Low level libraries</small>
+					</section>
 					<section>What is the developer experience?</section>
 					<section>Does the solution scale?</section>
 				</section>
@@ -65,8 +114,7 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
+				history: false,
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 		</script>
