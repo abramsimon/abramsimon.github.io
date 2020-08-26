@@ -33,11 +33,6 @@
 						<small>Often used for delivery receipts, fuel purchases, accident reports and more</small>
 						<small>You use Samsara... <a href="https://cloud.samsara.com/o/23472/fleet/reports/documents">Give it a try</a>!</small>
 					</section>
-				</section>
-				<section>
-					<section data-background-image="./bg-problem.jpg" data-background-opacity="0.5">
-						<h3>The Problem</h3>
-					</section>
 					<section>
 						<h3>What do customers want?</h3>
 						<small>Samsara Documents were designed for interactive environments</small><br />
@@ -47,8 +42,8 @@
 					</section>
 				</section>
 				<section>
-					<section data-background-image="./bg-research.jpg" data-background-opacity="0.5">
-						<h3>Research</h3>
+					<section data-background-image="./bg-planning.jpg" data-background-opacity="0.5">
+						<h3>Planning</h3>
 					</section>
 					<section>
 						<h3>🎯 Goals</h3>
@@ -59,7 +54,8 @@
 					</section>
 					<section>
 						<h3>Non-Goals</h3>
-						<small>Solve every team's PDF problems on the first pass</small>
+						<small>Solve every team's PDF problems on the first pass</small><br />
+						<small>Ex: Dynamic chart rendering (canvas/svg)</small>
 					</section>
 					<section>
 						<h3>Why is this problem hard?</h3>
@@ -69,8 +65,29 @@
 					</section>
 					<section>
 						<h3>We've tried before and failed 😢</h3>
-						<small>Leadership was reluctant</small><br />
-						<sub><small>* see <a href="#/1/2">why is this problem hard</a></small></sub>
+						<small>Leadership was reluctant (quotes from VP Eng):</small><br />
+						<small>
+							<blockquote>
+								dynamic layout is tricky because usually they have to render to a page size, so
+								it makes a lot of the logic difficult where on things like web and mobile you can
+								scroll forever and don't have to think about pagebreaks
+							</blockquote>
+							<blockquote>
+								there aren't off the shelf versions where someone is like "oh every company
+								has this problem you end up using this package and it will work". Every
+								enterprise software company wants this, we're not the only ones to wish for
+								printable pdf reports.
+							</blockquote>
+							<blockquote>
+								the requirements for pdfs are very different across applications (I want a pdf
+								version of this report versus I want a pdf with one image on each page) and
+								don't end up being re-usable
+							</blockquote>
+						</small>
+					</section>
+					<section>
+						<h3>RFC (Tech Spec)</h3>
+						<iframe style="width:100%;height:400px;" data-src="./RFC_Document_PDF_Rendering_Service_(Feb_2020).pdf"></iframe>
 					</section>
 				</section>
 				<section>
@@ -242,22 +259,13 @@ func ExampleFpdf_SetLeftMargin() {
 							</code>
 						</pre>
 					</section>
-				</section>
-				<section>
-					<section data-background-image="./bg-execution.jpg" data-background-opacity="0.5">
-						<h3>Execution</h3>
-					</section>
 					<section>
 						<h3>Timeline</h3>
-					</section>
-					<section>
-						<h3>Final Architecture</h3>
-						<img style="height: 400px;" data-src="./img-arch.jpg" />
-					</section>
-					<section>
-						<h3>Shout Outs 🥳</h3>
-						<small>Shaun Houlihan - Team Lead</small><br />
-						<small>Noah Ray - React Specialist</small><br />
+						<small>
+							<span class="fragment highlight-current-blue">2 engineers</span>
+							<span class="fragment highlight-current-blue">totalled 52 working days</span>
+							<span class="fragment highlight-current-blue">over the course of 9 weeks</span>
+						</small>
 					</section>
 				</section>
 				<section>
