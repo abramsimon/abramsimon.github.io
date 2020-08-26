@@ -52,11 +52,10 @@
 					</section>
 					<section>
 						<h3>🎯 Goals</h3>
-						<small>Ability for customers to export a document to PDF</small><br />
 						<small>PDFs should be fully featured (photos, digital signatures, etc.)</small><br />
 						<small>They should be visually appealing</small><br />
-						<small>They should be easy to consume, both digitally and when printed</small><br />
-						<small>Create a system that can be <del>easily</del> replicated on other teams</small>
+						<small>They should be easy to consume (digital, physical, api)</small><br />
+						<small>Create a system that can be easily replicated on other teams</small>
 					</section>
 					<section>
 						<h3>Non-Goals</h3>
@@ -84,8 +83,165 @@
 						<small>Web->PDF Rendering</small><br />
 						<small>Low level libraries</small><br />
 					</section>
-					<section>What is the developer experience?</section>
-					<section>Does the solution scale?</section>
+					<section>
+						<h3>The Customer Experience</h3>
+						<small>A simple, delightful experience that customers appreciate.</small><br />
+						<img style="height: 400px;" data-src="./img-customer-exp.gif" />
+					</section>
+					<section>
+						<h3>The Developer Experience</h3>
+						<small>A familiar technology stack (react, typescript, golang)</small>
+						<small>Consistent operational footprint (deployment, monitoring)</small>
+						<small>2 other teams have already replicated the solution</small>
+					</section>
+					<section>
+						<h3>Developers + Designers 😍</h3>
+						<pre>
+							<code data-trim data-noescape data-line-numbers="">
+&lt;Document&gt;
+	&lt;Page style={styles.body}&gt;
+		&lt;Text style={styles.header} fixed&gt;
+			~ Ono Food Co. ~
+		&lt;/Text&gt;
+		&lt;Text style={styles.title}&gt;We’re moving food forward.&lt;/Text&gt;
+		&lt;Text style={styles.author}&gt;Stephen, Daniel, Derek, Lucy, Carter&lt;/Text&gt;
+		&lt;Image
+			style={styles.image}
+			src="https://onoblends.co/static/332088addd3d255889585906e7d2050d.png"
+		/&gt;
+		&lt;Text style={styles.pageNumber} render={({ pageNumber, totalPages }) =&gt; (
+			`${pageNumber} / ${totalPages}`
+		)} fixed /&gt;
+	&lt;/Page&gt;
+	&lt;Page style={styles.body}&gt;
+		&lt;Text style={styles.subtitle}&gt;
+			We believe that good food brings out the best in you.
+		&lt;/Text&gt;
+		&lt;Text style={styles.text}&gt;
+			By reimagining the mobile dining experience, we make healthy food accessible to everyone. We use organic fruits and vegetables to create delicious blends that focus on the best ingredients for you.
+		&lt;/Text&gt;
+		&lt;Text style={styles.text}&gt;
+			We believe affordable nutrition should be accessible to everyone. With advanced robotics, thoughtful food sourcing, and nutritious ingredients we’re able to deliver this promise.
+		&lt;/Text&gt;
+		&lt;Text style={styles.pageNumber} render={({ pageNumber, totalPages }) =&gt; (
+			`${pageNumber} / ${totalPages}`
+		)} fixed /&gt;
+	&lt;/Page&gt;
+&lt;/Document&gt;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>vs. the alternative 🤢</h3>
+						<pre>
+							<code data-trim data-noescape data-line-numbers="">
+func ExampleFpdf_SetLeftMargin() {
+	var y0 float64
+	var crrntCol int
+	pdf := gofpdf.New("P", "mm", "A4", "")
+	pdf.SetDisplayMode("fullpage", "TwoColumnLeft")
+	titleStr := "20000 Leagues Under the Seas"
+	pdf.SetTitle(titleStr, false)
+	pdf.SetAuthor("Jules Verne", false)
+	setCol := func(col int) {
+		// Set position at a given column
+		crrntCol = col
+		x := 10.0 + float64(col)*65.0
+		pdf.SetLeftMargin(x)
+		pdf.SetX(x)
+	}
+	chapterTitle := func(chapNum int, titleStr string) {
+		// Arial 12
+		pdf.SetFont("Arial", "", 12)
+		// Background color
+		pdf.SetFillColor(200, 220, 255)
+		// Title
+		pdf.CellFormat(0, 6, fmt.Sprintf("Chapter %d : %s", chapNum, titleStr),
+			"", 1, "L", true, 0, "")
+		// Line break
+		pdf.Ln(4)
+		y0 = pdf.GetY()
+	}
+	chapterBody := func(fileStr string) {
+		// Read text file
+		txtStr, err := ioutil.ReadFile(fileStr)
+		if err != nil {
+			pdf.SetError(err)
+		}
+		// Font
+		pdf.SetFont("Times", "", 12)
+		// Output text in a 6 cm width column
+		pdf.MultiCell(60, 5, string(txtStr), "", "", false)
+		pdf.Ln(-1)
+		// Mention
+		pdf.SetFont("", "I", 0)
+		pdf.Cell(0, 5, "(end of excerpt)")
+		// Go back to first column
+		setCol(0)
+	}
+	printChapter := func(num int, titleStr, fileStr string) {
+		// Add chapter
+		pdf.AddPage()
+		chapterTitle(num, titleStr)
+		chapterBody(fileStr)
+	}
+	pdf.SetAcceptPageBreakFunc(func() bool {
+		// Method accepting or not automatic page break
+		if crrntCol < 2 {
+			// Go to next column
+			setCol(crrntCol + 1)
+			// Set ordinate to top
+			pdf.SetY(y0)
+			// Keep on page
+			return false
+		}
+		// Go back to first column
+		setCol(0)
+		// Page break
+		return true
+	})
+	pdf.SetHeaderFunc(func() {
+		// Arial bold 15
+		pdf.SetFont("Arial", "B", 15)
+		// Calculate width of title and position
+		wd := pdf.GetStringWidth(titleStr) + 6
+		pdf.SetX((210 - wd) / 2)
+		// Colors of frame, background and text
+		pdf.SetDrawColor(0, 80, 180)
+		pdf.SetFillColor(230, 230, 0)
+		pdf.SetTextColor(220, 50, 50)
+		// Thickness of frame (1 mm)
+		pdf.SetLineWidth(1)
+		// Title
+		pdf.CellFormat(wd, 9, titleStr, "1", 1, "C", true, 0, "")
+		// Line break
+		pdf.Ln(10)
+		// Save ordinate
+		y0 = pdf.GetY()
+	})
+	pdf.SetFooterFunc(func() {
+		// Position at 1.5 cm from bottom
+		pdf.SetY(-15)
+		// Arial italic 8
+		pdf.SetFont("Arial", "I", 8)
+		// Text color in gray
+		pdf.SetTextColor(128, 128, 128)
+		// Page number
+		pdf.CellFormat(0, 10, fmt.Sprintf("Page %d", pdf.PageNo()),
+			"", 0, "C", false, 0, "")
+	})
+	printChapter(1, "A RUNAWAY REEF", example.TextFile("20k_c1.txt"))
+	printChapter(2, "THE PROS AND CONS", example.TextFile("20k_c2.txt"))
+	fileStr := example.Filename("Fpdf_SetLeftMargin_multicolumn")
+	err := pdf.OutputFileAndClose(fileStr)
+	example.Summary(err, fileStr)
+	// Output:
+	// Successfully generated pdf/Fpdf_SetLeftMargin_multicolumn.pdf
+}
+
+							</code>
+						</pre>
+					</section>
 				</section>
 				<section>
 					<section data-background-image="./bg-execution.jpg" data-background-opacity="0.5">
@@ -95,15 +251,18 @@
 						<h3>Timeline</h3>
 					</section>
 					<section>
-						<h3>Results</h3>
+						<h3>Final Architecture</h3>
+						<img style="height: 400px;" data-src="./img-arch.jpg" />
 					</section>
 					<section>
 						<h3>Shout Outs 🥳</h3>
 						<small>Shaun Houlihan - Team Lead</small><br />
 						<small>Noah Ray - React Specialist</small><br />
 					</section>
-					</section>
-				<section>Q&A</section>
+				</section>
+				<section>
+					<h3>Q&A</h3>
+				</section>
 			</div>
 		</div>
 
