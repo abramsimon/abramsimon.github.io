@@ -59,46 +59,19 @@
 					</section>
 					<section>
 						<h3>Why is this problem hard?</h3>
-						<small>Coders ≠ Designers</small><br />
 						<small>PDFs present unique layout challenges</small><br />
 						<small>Most FOSS solutions are very low level</small>
+						<small>We've tried before and failed (leadership was reluctant) 😢</small>
 					</section>
 					<section>
-						<h3>We've tried before and failed 😢</h3>
-						<small>Leadership was reluctant (quotes from VP Eng):</small><br />
-						<small>
-							<blockquote>
-								dynamic layout is tricky because usually they have to render to a page size, so
-								it makes a lot of the logic difficult where on things like web and mobile you can
-								scroll forever and don't have to think about pagebreaks
-							</blockquote>
-							<blockquote>
-								there aren't off the shelf versions where someone is like "oh every company
-								has this problem you end up using this package and it will work". Every
-								enterprise software company wants this, we're not the only ones to wish for
-								printable pdf reports.
-							</blockquote>
-							<blockquote>
-								the requirements for pdfs are very different across applications (I want a pdf
-								version of this report versus I want a pdf with one image on each page) and
-								don't end up being re-usable
-							</blockquote>
-						</small>
-					</section>
-					<section>
-						<h3>RFC (Tech Spec)</h3>
-						<iframe style="width:100%;height:400px;" data-src="./RFC_Document_PDF_Rendering_Service_(Feb_2020).pdf"></iframe>
+						<h3>The Alternatives...</h3>
+						<small>Web->PDF Rendering</small><br />
+						<small>Low level libraries</small><br />
 					</section>
 				</section>
 				<section>
 					<section data-background-image="./bg-solution.jpg" data-background-opacity="0.5">
 						<h3>The Solution</h3>
-					</section>
-					<section>
-						<h3>First, the alternatives...</h3>
-						<small>Let the customer solve the problem 🤦‍♂️</small><br />
-						<small>Web->PDF Rendering</small><br />
-						<small>Low level libraries</small><br />
 					</section>
 					<section>
 						<h3>The Customer Experience</h3>
@@ -109,7 +82,6 @@
 						<h3>The Developer Experience</h3>
 						<small>A familiar technology stack (react, typescript, golang)</small>
 						<small>Consistent operational footprint (deployment, monitoring)</small>
-						<small>2 other teams have already replicated the solution</small>
 					</section>
 					<section>
 						<h3>Developers + Designers 😍</h3>
@@ -260,12 +232,13 @@ func ExampleFpdf_SetLeftMargin() {
 						</pre>
 					</section>
 					<section>
-						<h3>Timeline</h3>
+						<h3>Results</h3>
 						<small>
 							<span class="fragment highlight-current-blue">2 engineers</span>
 							<span class="fragment highlight-current-blue">totalled 52 working days</span>
 							<span class="fragment highlight-current-blue">over the course of 9 weeks</span>
 						</small>
+						<small class="fragment highlight-green">2 other teams have already replicated the solution</small>
 					</section>
 				</section>
 				<section>
